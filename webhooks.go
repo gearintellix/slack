@@ -6,6 +6,7 @@ import (
 )
 
 type WebhookMessage struct {
+	Type            string       `json:"type,omitempty"`
 	Username        string       `json:"username,omitempty"`
 	IconEmoji       string       `json:"icon_emoji,omitempty"`
 	IconURL         string       `json:"icon_url,omitempty"`
