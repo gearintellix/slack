@@ -28,7 +28,12 @@ type RawPostMessageArguments struct {
 	UserName       string        `json:"username,omitempty"`
 }
 
-// RawPostMessageContext do chat.postMessage with highly customizable
+// RawPostMessage do chat.postMessage with highly customizable
+func (api *Client) RawPostMessage(args RawPostMessageArguments) (_channel string, _timestamp string, _text string, err error) {
+	return api.RawPostMessageContext(context.Background(), args)
+}
+
+// RawPostMessageContext do chat.postMessage with highly customizable with context
 func (api *Client) RawPostMessageContext(ctx context.Context, args RawPostMessageArguments) (_channel string, _timestamp string, _text string, err error) {
 	var (
 		req      *http.Request
