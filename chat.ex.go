@@ -3,13 +3,13 @@ package slack
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
 
 // SendRawMessageArguments chat.postMessage payload
 type SendRawMessageArguments struct {
-	Token          string        `json:"token,omitempty"`
 	Channel        string        `json:"channel,omitempty"`
 	Text           string        `json:"text,omitempty"`
 	AsUser         bool          `json:"as_user,omitempty"`
@@ -39,11 +39,12 @@ func (api *Client) SendRawMessageContext(ctx context.Context, args SendRawMessag
 		response chatResponseFull
 	)
 
-	args.Token = api.token
 	req, err = jsonReq(api.endpoint+string(chatPostMessage), args)
 	if err != nil {
 		return _channel, _timestamp, _text, err
 	}
+
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", api.token))
 
 	if api.Debug() {
 		reqBody, err := ioutil.ReadAll(req.Body)
