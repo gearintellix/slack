@@ -7,8 +7,8 @@ import (
 	"net/http"
 )
 
-// RawSendMessageArguments chat.postMessage payload
-type RawSendMessageArguments struct {
+// SendRawMessageArguments chat.postMessage payload
+type SendRawMessageArguments struct {
 	Token          string        `json:"token,omitempty"`
 	Channel        string        `json:"channel,omitempty"`
 	Text           string        `json:"text,omitempty"`
@@ -18,7 +18,7 @@ type RawSendMessageArguments struct {
 	IconEmoji      string        `json:"icon_emoji,omitempty"`
 	IconURL        string        `json:"icon_url,omitempty"`
 	LinkNames      bool          `json:"link_names,omitempty"`
-	MarkDown       bool          `json:"mrkdwn,omitempty"`
+	Markdown       bool          `json:"mrkdwn,omitempty"`
 	Parse          string        `json:"parse,omitempty"`
 	ReplyBroadcast bool          `json:"reply_broadcast,omitempty"`
 	ThreadTS       string        `json:"thread_ts,omitempty"`
@@ -27,13 +27,13 @@ type RawSendMessageArguments struct {
 	UserName       string        `json:"username,omitempty"`
 }
 
-// RawSendMessage do chat.postMessage with highly customizable
-func (api *Client) RawSendMessage(args RawSendMessageArguments) (_channel string, _timestamp string, _text string, err error) {
-	return api.RawSendMessageContext(context.Background(), args)
+// SendRawMessage do chat.postMessage with highly customizable
+func (api *Client) SendRawMessage(args SendRawMessageArguments) (_channel string, _timestamp string, _text string, err error) {
+	return api.SendRawMessageContext(context.Background(), args)
 }
 
-// RawSendMessageContext do chat.postMessage with highly customizable and context
-func (api *Client) RawSendMessageContext(ctx context.Context, args RawSendMessageArguments) (_channel string, _timestamp string, _text string, err error) {
+// SendRawMessageContext do chat.postMessage with highly customizable and context
+func (api *Client) SendRawMessageContext(ctx context.Context, args SendRawMessageArguments) (_channel string, _timestamp string, _text string, err error) {
 	var (
 		req      *http.Request
 		response chatResponseFull
@@ -66,8 +66,8 @@ func (api *Client) RawSendMessageContext(ctx context.Context, args RawSendMessag
 	return _channel, _timestamp, _text, err
 }
 
-// RawResponseMessageArguments hook message payload
-type RawResponseMessageArguments struct {
+// ResponseRawMessageArguments hook message payload
+type ResponseRawMessageArguments struct {
 	Endpoint        string        `json:"-"`
 	ThreadTS        string        `json:"thread_ts,omitempty"`
 	Text            string        `json:"text,omitempty"`
@@ -79,12 +79,12 @@ type RawResponseMessageArguments struct {
 }
 
 // RawResponseMessage do hook message with highly customizable
-func (api *Client) RawResponseMessage(args RawResponseMessageArguments) (_channel string, _timestamp string, _text string, err error) {
-	return api.RawResponseMessageContext(context.Background(), args)
+func (api *Client) ResponseRawMessage(args ResponseRawMessageArguments) (_channel string, _timestamp string, _text string, err error) {
+	return api.ResponseRawMessageContext(context.Background(), args)
 }
 
-// RawResponseMessageContext do hook message with highly customizable and context
-func (api *Client) RawResponseMessageContext(ctx context.Context, args RawResponseMessageArguments) (_channel string, _timestamp string, _text string, err error) {
+// ResponseRawMessageContext do hook message with highly customizable and context
+func (api *Client) ResponseRawMessageContext(ctx context.Context, args ResponseRawMessageArguments) (_channel string, _timestamp string, _text string, err error) {
 	var (
 		req      *http.Request
 		response chatResponseFull
